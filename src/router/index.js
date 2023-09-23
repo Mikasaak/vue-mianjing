@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { getToken } from '@/utils/localStorage'
 
 import LayOut from '@/views/LayOut.vue'
 import Detail from '@/views/Detail.vue'
@@ -51,5 +52,19 @@ const routes = [
 ]
 
 const router = new VueRouter({ routes })
-
+router.beforeEach((to, from, next) => {
+  const whiteList = ['/login', '/register']
+  console.log(to, from)
+  console.log(getToken())
+  if (getToken()) {
+    next()
+  } else {
+    console.log(whiteList.includes(to.path))
+    if (whiteList.includes(to.path)) {
+      next()
+    } else if (!whiteList.includes(from.path)) {
+      next('/login')
+    }
+  }
+})
 export default router

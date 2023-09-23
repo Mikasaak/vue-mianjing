@@ -5,6 +5,7 @@ import { Form } from 'vant'
 import { Field } from 'vant'
 import { NavBar } from 'vant'
 import { Toast } from 'vant'
+import { Cell, CellGroup } from 'vant'
 
 Vue.use(Toast)
 Vue.use(NavBar)
@@ -14,3 +15,5 @@ Vue.use(Tabbar)
 Vue.use(TabbarItem)
 Vue.use(Button)
 Vue.use(Rate)
+Vue.use(Cell)
+Vue.use(CellGroup)
