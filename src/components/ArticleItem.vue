@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-cell border class="article-item" is-link>
+    <van-cell border class="article-item" is-link @click="$router.push(`/detail/${item.id}`)">
       <!-- 使用 title 插槽来自定义标题 -->
       <template #title>
         <div class="head">
@@ -14,7 +14,7 @@
 
       <template #label>
         <div class="body">
-          {{ item.content }}
+          {{ clearHTMLTag(item.content) }}
         </div>
         <div class="foot">点赞 {{ item.likeCount }} | 浏览 {{ item.views }}</div>
       </template>
@@ -30,6 +30,11 @@ export default {
       type: Object,
       default: () => {
       }
+    }
+  },
+  methods: {
+    clearHTMLTag (str) {
+      return str.replace(/<[^>]+>/g, '')
     }
   }
 }

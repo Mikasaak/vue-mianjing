@@ -24,7 +24,7 @@ instance.interceptors.request.use(function (config) {
 // 添加响应拦截器
 instance.interceptors.response.use(function (response) {
   // 对响应数据做点什么
-  if (response.data.data.token) {
+  if (response.data && response.data.data && response.data.data.token) {
     setToken(response.data.data.token)
   }
   return response

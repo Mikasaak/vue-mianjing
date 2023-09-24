@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <router-view>
-    </router-view>
+    <keep-alive :include="keepAliveList">
+      <router-view></router-view>
+    </keep-alive>
     <van-tabbar route>
       <van-tabbar-item icon="fire-o" to="/article">面经</van-tabbar-item>
       <van-tabbar-item icon="like-o" to="/like">喜欢</van-tabbar-item>
@@ -18,7 +19,8 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       isDisabled: true,
-      value: 3
+      value: 3,
+      keepAliveList: ['LayOut']
     }
   }
 }

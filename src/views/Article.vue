@@ -1,14 +1,24 @@
 <template>
   <div class="article-page">
-    <van-nav-bar
-      left-arrow
-      left-text="返回"
-      right-text="按钮"
-      title="标题"
-    />
-    <ArticleItem v-for="item in articleList" :key="item.id" :item="item"></ArticleItem>
-    <div class="footerpadding">
+    <div class="article-header">
+      <a :class="{
+        selected: sorter==='weight_desc'
+      }" class="sorter" @click="changeSorter('weight_desc')">推荐</a>
+      |
+      <a :class="{
+         selected: sorter!=='weight_desc'
+      }" class="sorter" @click="changeSorter()">最新</a>
     </div>
+    <van-list
+      v-model="loading"
+      :finished="finished"
+      finished-text="没有更多了"
+      @load="onLoad"
+    >
+      <ArticleItem v-for="item in articleList" :key="item.id" :item="item"></ArticleItem>
+    </van-list>
+
+    <div class="footerpadding"></div>
   </div>
 </template>
 
@@ -20,9 +30,6 @@ import { getArticles } from '@/api/article'
 
 export default {
   name: 'ArticleList',
-  created () {
-    this.getArticleList()
-  },
   mounted () {
     // 原生Js获取滚动位置
     // console.log(window)
@@ -37,15 +44,40 @@ export default {
   },
   data () {
     return {
-      articleList: []
+      articleList: [],
+      loading: false,
+      finished: false,
+      current: 38,
+      pageSize: 10,
+      sorter: 'weight_desc'
       // scrollY: 0
     }
   },
   methods: {
-    async getArticleList () {
-      const res = await getArticles()
+    async onLoad () {
+      // 异步请求数据
+      // 获取文章列表
+      const res = await getArticles({
+        current: this.current,
+        pageSize: this.pageSize,
+        sorter: this.sorter
+      })
       console.log(res)
-      this.articleList = res.data.data.rows
+      this.articleList.push(...res.data.data.rows)
+      this.loading = false
+      this.current++
+      // 如果当前页数大于总页数，就不再请求数据
+      if (this.current > res.data.data.pageTotal) {
+        this.finished = true
+      }
+    },
+    changeSorter (sorter) {
+      this.sorter = sorter
+      this.articleList = []
+      this.current = 1
+      this.finished = false
+      this.loading = true
+      this.onLoad()
     },
     toDetail (id) {
       this.$router.push({
@@ -62,6 +94,19 @@ export default {
 <style lang="less" scoped>
 .article-page {
   background: #f5f5f5;
+}
+
+.article-header {
+  background: #fff;
+  padding: 10px 15px;
+  font-size: 12px;
+  color: #999;
+  text-align: left;
+  line-height: 1.5;
+
+  .selected {
+    color: #333;
+  }
 }
 
 .footerpadding {

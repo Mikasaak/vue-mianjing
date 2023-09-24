@@ -1,12 +1,20 @@
 import request from '@/utils/request'
-import { getToken } from '@/utils/localStorage'
 
 export const getArticles = (params = {}) => {
-  const token = getToken()
   return request.get('/interview/query', {
-    params,
-    headers: {
-      Authorization: `Bearer ${token}`
+    params
+  })
+}
+export const getArticleDetail = (id) => {
+  return request.get('/interview/show', {
+    params: {
+      id
     }
+  })
+}
+export const likeOrCollect = (data) => {
+  return request.post('/interview/opt', {
+    id: data.id,
+    optType: data.optType
   })
 }

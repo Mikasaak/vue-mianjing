@@ -6,6 +6,7 @@ import { Field } from 'vant'
 import { NavBar } from 'vant'
 import { Toast } from 'vant'
 import { Cell, CellGroup } from 'vant'
+import { List } from 'vant'
 
 Vue.use(Toast)
 Vue.use(NavBar)
@@ -17,3 +18,4 @@ Vue.use(Button)
 Vue.use(Rate)
 Vue.use(Cell)
 Vue.use(CellGroup)
+Vue.use(List)
