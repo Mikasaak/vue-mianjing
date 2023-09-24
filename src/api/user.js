@@ -7,3 +7,6 @@ export const register = (data) => {
 export const login = (data) => {
   return request.post('/user/login', data)
 }
+export const getUserInfo = () => {
+  return request.get('/user/currentUser')
+}

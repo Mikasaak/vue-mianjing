@@ -18,3 +18,22 @@ export const likeOrCollect = (data) => {
     optType: data.optType
   })
 }
+export const getLike = (page) => {
+  return request.get('/interview/opt/list', {
+    params: {
+      optType: 1,
+      pageSize: 5,
+      page: page
+    }
+  })
+}
+
+export const getCollect = (page) => {
+  return request.get('/interview/opt/list', {
+    params: {
+      optType: 2,
+      pageSize: 5,
+      page: page
+    }
+  })
+}

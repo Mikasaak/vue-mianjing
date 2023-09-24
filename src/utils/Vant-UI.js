@@ -1,12 +1,20 @@
 // Vant组件库的按需导入
 import Vue from 'vue'
-import { Button, Rate, Tabbar, TabbarItem } from 'vant'
-import { Form } from 'vant'
-import { Field } from 'vant'
-import { NavBar } from 'vant'
-import { Toast } from 'vant'
-import { Cell, CellGroup } from 'vant'
-import { List } from 'vant'
+import {
+  Button,
+  Rate,
+  Tabbar,
+  TabbarItem,
+  Form,
+  Field,
+  NavBar,
+  Toast,
+  Cell,
+  CellGroup,
+  List,
+  Grid,
+  GridItem
+} from 'vant'
 
 Vue.use(Toast)
 Vue.use(NavBar)
@@ -19,3 +27,5 @@ Vue.use(Rate)
 Vue.use(Cell)
 Vue.use(CellGroup)
 Vue.use(List)
+Vue.use(Grid)
+Vue.use(GridItem)
